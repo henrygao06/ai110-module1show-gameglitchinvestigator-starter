@@ -1,26 +1,67 @@
-def get_range_for_difficulty(difficulty: str):
-    """Return (low, high) inclusive range for a given difficulty."""
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+def getRangeForDifficulty(difficulty:str):
+    """return (low,high) inclusive range for a given difficulty"""
 
+    if difficulty == "Easy":
+        return 0,30
+    if difficulty == "Normal":
+        return 30,60
+    if difficulty == "Hard":
+        return 60,100
 
-def parse_guess(raw: str):
+    return 30,60
+
+def parseGuess(raw:str):
     """
-    Parse user input into an int guess.
-
-    Returns: (ok: bool, guess_int: int | None, error_message: str | None)
+    parse user input into an int guess
+    returns: (ok:bool,guessInt:int | None,errorMessage:str | None)
     """
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
 
+    if raw is None:
+        return False,None,"none"
 
-def check_guess(guess, secret):
+    if raw == "":
+        return False,None,"no guess"
+
+    try:
+        if "." in raw:
+            value = int(float(raw))
+        else:
+            value = int(raw)
+    except Exception:
+        return False,None,"not a number"
+
+    return True,value,None
+
+def checkGuess(guess,secret):
     """
-    Compare guess to secret and return (outcome, message).
-
-    outcome examples: "Win", "Too High", "Too Low"
+    compare guess to secret and return (outcome,message).
+    outcome examples: "Win","Too High","Too Low"
     """
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
 
+    if guess == secret:
+        return "Win","Correct!"
 
-def update_score(current_score: int, outcome: str, attempt_number: int):
-    """Update score based on outcome and attempt number."""
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    try:
+        if guess>secret:
+            return "Too High","📉 Go LOWER!"
+        else:
+            return "Too Low","📈 Go HIGHER!"
+    except TypeError:
+        g = str(guess)
+        if g == secret:
+            return "Win","Correct!"
+
+        if g>secret:
+            return "Too High","📉 Go LOWER!"
+
+        return "Too Low","📈 Go HIGHER!"
+
+def updateScore(currentScore:int,outcome:str,attemptNumber:int,attemptLimit:int=10):
+    """update score based on outcome and attemptNumber"""
+
+    if outcome == "Win":
+        pointsPerAttempt = 100//attemptLimit
+        points = 100-pointsPerAttempt*(attemptNumber-1)
+        return max(0,points)
+
+    return max(0,currentScore-(100//attemptLimit))
