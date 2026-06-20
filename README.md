@@ -24,27 +24,67 @@ It wrote the code, ran away, and now the game is unplayable.
    - Keep fixing until all tests pass!
 
 ## 📝 Document Your Experience
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- Describe the game's purpose.
+   - The purpose of the game is to guess a secret number within a given range.
+
+- Detail which bugs you found.
+   - The initial bugs I found include:
+      - Hints are not accurate.
+      - When you guess the secret number, the score you get doesn't match the score shown in the developer debug info.
+      - The game no longer works when you press new game.
+      - The range never changes when you change your difficulty.
+      - When you press submit guess for the first time, it only lowers your attempts, only when you press it a second time does it actually submit your guess.
+      - Attempts are not accurate.
+
+- Explain what fixes you applied.
+   - The fixes the AI and I applied include:
+      - Hints now display accurately.
+      - Scores now match correctly.
+      - A new game starts when you press new game.
+      - Every difficulty has a different range.
+      - When you press submit guess, everything updates at once.
+      - Attempts now display accurately.
 
 ## 📸 Demo Walkthrough
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. User submits a guess of 1.
+2. Game returns "📈 Go HIGHER!" and "Cold ❄️"
+3. Score updates.
+4. User submits a guess of 30.
+5. Game returns "📉 Go LOWER!" and "Cold ❄️"
+6. Score updates.
+7. User submits a guess of 20.
+8. Game returns "📉 Go LOWER!" and "Hot 🔥"
+9. Score updates.
+10. User submits a guess of 10.
+11. Game returns "📈 GO HIGHER!" and "Warm 🌡️"
+12. Score updates.
+13. User submits a guess of 16.
+14. Game ends with the "You won! The secret number was 16. Final Score: 76" message.
+15. If that was a new high score, it gets displayed under "🏆 High Scores," with the "🏆 New High Score!" message.
+16. "Click 'New Game' to play again."
 
-**screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
+**screenshot** *(optional)*:
+> ![alt text](image.png)
 
 ## 🧪 Test Results
 ```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+tests/test_game_logic.py
+========================= 26 passed in 0.03s =========================
 ```
 
 ## 🚀 Stretch Features
-- [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
+- If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional.
+   - There are now:
+      - Hot and Cold Hints
+      - Color Coding
+      - Game Summary
+      - Guess History
+      - High Scores Sidebar
+
+   - Screenshots:
+      - The High Scores Sidebar can be seen from the screenshot under "📸 Demo Walkthrough."
+      - ![alt text](image-1.png)
+      - ![alt text](image-2.png)
+      - ![alt text](image-3.png)
